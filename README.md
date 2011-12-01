@@ -1,6 +1,70 @@
 AuditableBehavior
 ================
 
+Quick start
+-----------
+
+Add the behavior to your database schema :
+
+``` xml
+<database name="propel" defaultIdMethod="native" package="lib.model">
+  <behavior name="auditable" />
+  <table name="auditable_object">
+    <column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="name" type="VARCHAR" size="255" />
+  </table>
+</database>
+```
+
+``` php
+<?php
+$auditable = new Auditable();
+$auditable->setName('audit');
+$auditable->save();
+
+// and now access audit trail
+$auditable->countActivity();
+foreach ($auditable->getLastActivity() as $activity) {
+  echo $activity->getLabel() . '<br />';
+}
+// will result in "CREATE<br />"
+```
+
+
+Installation
+------------
+
+Install the behavior in your vendor directory
+
+```
+git submodule add git://github.com/Carpe-Hora/AuditableBehavior.git lib/vendor/AuditableBehavior
+```
+
+add following to your ```propel.ini``` file:
+
+``` ini
+propel.behavior.auditable.class               = lib.vendor.AuditableBehavior.src.AuditableBehavior
+```
+
+Declare behavior for the whole database in your ```config/schema.xml```
+
+``` xml
+<database name="propel" defaultIdMethod="native" package="lib.model">
+  <behavior name="auditable" />
+</database>
+```
+
+or for a table only
+
+``` xml
+<database name="propel" defaultIdMethod="native" package="lib.model">
+  <table name="my_table">
+    <column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+    <behavior name="auditable" />
+  </table>
+</database>
+```
+
 Configuration
 -------------
 
@@ -37,7 +101,7 @@ Built in methods
 
 * ```getLastActivity($number=10, $label=null, $con=null)``` return the recent object related activity.
 * ```logActivity($label, $con=null)``` create an activity entry for $label
-* ```countActivity($con=null)``` count related activity
+* ```countActivity($label = null, $con=null)``` count related activity
 * ```isAudited()``` is the current objcet auditableing its activity
 * ```disableLocalAudit()``` temporary remove auditableing activity for this object
 * ```enableLocalAudit()``` temporary force auditableing activity for this object
@@ -62,5 +126,4 @@ Activity table
 TODO
 ----
 
-* Handle composite PK
-* alter activty table
+* alter activty active record and query
