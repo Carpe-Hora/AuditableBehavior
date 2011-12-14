@@ -1,5 +1,5 @@
 AuditableBehavior
-================
+=================
 
 Quick start
 -----------
