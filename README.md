@@ -36,8 +36,8 @@ Installation
 
 Install the behavior in your vendor directory
 
-```
-git submodule add git://github.com/Carpe-Hora/AuditableBehavior.git lib/vendor/AuditableBehavior
+``` bash
+$ git submodule add git://github.com/Carpe-Hora/AuditableBehavior.git lib/vendor/AuditableBehavior
 ```
 
 add following to your ```propel.ini``` file:
