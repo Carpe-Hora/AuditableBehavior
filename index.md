@@ -6,14 +6,14 @@ date: 2011-12-14
 ---
 
 AuditableBehavior
-================
+=================
 
 Quick start
 -----------
 
 Add the behavior to your database schema :
 
-``` xml
+{% highlight xml %}
 <database name="propel" defaultIdMethod="native" package="lib.model">
   <behavior name="auditable" />
   <table name="auditable_object">
@@ -23,7 +23,7 @@ Add the behavior to your database schema :
 </database>
 {% endhighlight %}
 
-``` php
+{% highlight php %}
 <?php
 $auditable = new Auditable();
 $auditable->setName('audit');
@@ -49,13 +49,13 @@ git submodule add git://github.com/Carpe-Hora/AuditableBehavior.git lib/vendor/A
 
 add following to your ```propel.ini``` file:
 
-``` ini
+{% highlight ini %}
 propel.behavior.auditable.class               = lib.vendor.AuditableBehavior.src.AuditableBehavior
 {% endhighlight %}
 
 Declare behavior for the whole database in your ```config/schema.xml```
 
-``` xml
+{% highlight xml %}
 <database name="propel" defaultIdMethod="native" package="lib.model">
   <behavior name="auditable" />
 </database>
@@ -63,7 +63,7 @@ Declare behavior for the whole database in your ```config/schema.xml```
 
 or for a table only
 
-``` xml
+{% highlight xml %}
 <database name="propel" defaultIdMethod="native" package="lib.model">
   <table name="my_table">
     <column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
