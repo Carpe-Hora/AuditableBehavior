@@ -259,7 +259,9 @@ EOF;
 
     return <<<EOF
 // AuditableBehavior
-\$this->logActivity({$this->peerClassname}::AUDIT_LABEL_DELETE, \$con);
+if (!\$this->isNew()) {
+  \$this->logActivity({$this->peerClassname}::AUDIT_LABEL_DELETE, \$con);
+}
 EOF;
   }
 }
