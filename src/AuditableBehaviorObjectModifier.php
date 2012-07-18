@@ -121,7 +121,7 @@ EOF;
  */
 public function logActivity(\$activity_label, \$con = null)
 {
-  if (!\$this->isAudited() || \$this->alreadyInSave) {
+  if (!\$this->isAudited()) {
     return \$this;
   }
   if (\$this->isNew()) {
@@ -244,7 +244,9 @@ EOF;
 
     return <<<EOF
 // AuditableBehavior
-\$this->logActivity({$this->peerClassname}::AUDIT_LABEL_UPDATE, \$con);
+if (\$affectedRows) {
+  \$this->logActivity({$this->peerClassname}::AUDIT_LABEL_UPDATE, \$con);
+}
 EOF;
   }
 
