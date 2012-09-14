@@ -82,6 +82,7 @@ Following paramters are available :
 * **activity_label_column** : column for activity log in **activity_table**
 * **object_column** : column for object table in **activity_table**
 * **object_pk_column** : column for object primarikey in **activity_table**
+* **blacklist**: a coma separated list of tables to exclude from audit
 
 How it works
 ------------

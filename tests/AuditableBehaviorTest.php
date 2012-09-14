@@ -107,6 +107,12 @@ EOF;
     $this->assertFalse(method_exists('AuditableBehaviorTestAppliedOnDatabaseActivity', 'disableLocalAudit'));
   }
 
+  function testGetBlacklist() {
+    $b = new AuditableBehavior();
+    $list = $b->getBlacklist('tab,tab1, tab2, tab3 ,tab4');
+    $this->assertEquals(array('tab', 'tab1', 'tab2', 'tab3', 'tab4'), $list);
+  }
+
   function testAuditActivity()
   {
     $o = new AuditableBehaviorTest1();

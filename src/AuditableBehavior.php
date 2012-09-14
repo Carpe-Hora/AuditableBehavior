@@ -28,12 +28,15 @@ class AuditableBehavior extends Behavior
         'object_column'     => 'object_class',
         'object_pk_column'  => 'object_pk',
         'created_at_column' => 'created_at',
+        'blacklist'         => '',
       );
 
     protected $activityTable, $peerBuilderModifier, $objectBuilderModifier;
 
     public function modifyDatabase()
     {
+        $blacklist = $this->getParameter('blacklist');
+        $blacklist = $this->getBlacklist($blacklist);
         foreach ($this->getDatabase()->getTables() as $table) {
             if ($table->hasBehavior($this->getName())) {
               // don't add the same behavior twice
@@ -44,9 +47,17 @@ class AuditableBehavior extends Behavior
               // don't add the behavior to activity talbe
               continue;
             }
+            if (in_array($table->getName(), $blacklist)) {
+              // do not apply on blacklisted tables
+              continue;
+            }
             $b = clone $this;
             $table->addBehavior($b);
       }
+    }
+
+    public function getBlacklist($blacklist) {
+        return array_map('trim', explode(',', $blacklist));
     }
 
     public function modifyTable()
